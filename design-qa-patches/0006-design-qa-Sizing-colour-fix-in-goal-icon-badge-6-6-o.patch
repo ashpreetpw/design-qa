@@ -1,0 +1,44 @@
+From 5cdd36ddc7b7a373be6f4c0e6c246cccef004198 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:08 +0530
+Subject: [PATCH 06/12] =?UTF-8?q?design-qa:=20Sizing/colour=20fix=20in=20g?=
+ =?UTF-8?q?oal-icon=20badge=20=E2=80=94=206=C3=976=20orange=20circle=20?=
+ =?UTF-8?q?=E2=86=92=2024=C3=9724=20white=20square?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-007
+Date: 2026-04-20
+Figma node: I3235:5083;5112:52573
+Property: icon container size + shape + fill
+Expected: 24×24 white rounded-sm (4px radius), svg icon inside
+Actual: 6×6 (h-6 w-6 = 6px in project tailwind) orange-500 circle, 🎯 emoji
+Severity: High
+File: src/components/ClassSelector.tsx:13-15
+
+Reasoning: tailwind.config.js has no 24-key for spacing, so arbitrary values
+h-[24px] w-[24px] are used. Emoji retained as a visual placeholder — the
+spec-correct icon is an SVG for engineering to drop in later.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/ClassSelector.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/ClassSelector.tsx b/src/components/ClassSelector.tsx
+index 9269769..30ddf1f 100644
+--- a/src/components/ClassSelector.tsx
++++ b/src/components/ClassSelector.tsx
+@@ -10,7 +10,7 @@ export default function ClassSelector() {
+         className="flex items-center justify-between rounded-md bg-white/30 px-16 py-8"
+       >
+         <div className="flex items-center gap-8">
+-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-tiny text-white font-bold">
++          <span className="flex h-[24px] w-[24px] items-center justify-center rounded-sm bg-white text-sub">
+             🎯
+           </span>
+           <span className="text-regular font-semibold text-heading">
+-- 
+2.34.1
+

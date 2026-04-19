@@ -1,0 +1,42 @@
+From bffdea5db13806f191f71847c3cb4f3d51bbca45 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:56 +0530
+Subject: [PATCH 12/12] =?UTF-8?q?design-qa:=20Typography=20fix=20in=20Cate?=
+ =?UTF-8?q?goryChip=20subtitle=20=E2=80=94=20line-height=2011=E2=86=9213px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-013
+Date: 2026-04-20
+Figma node: 3235:74127
+Property: line-height
+Expected: 9px / 13px Medium
+Actual: 9px / 11px
+Severity: Low
+File: src/components/CategoryChips.tsx:60-64
+
+Reasoning: 11px leading crushed the glyphs; Figma subtitle has 13px leading
+for readability.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/CategoryChips.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/CategoryChips.tsx b/src/components/CategoryChips.tsx
+index d66e8b2..0ec019c 100644
+--- a/src/components/CategoryChips.tsx
++++ b/src/components/CategoryChips.tsx
+@@ -59,7 +59,7 @@ function CategoryChip({ chip }: { chip: Chip }) {
+         </div>
+         <div
+           className="text-center"
+-          style={{ color: "#974424", fontSize: "9px", lineHeight: "11px" }}
++          style={{ color: "#974424", fontSize: "9px", lineHeight: "13px" }}
+         >
+           {chip.subtitle}
+         </div>
+-- 
+2.34.1
+

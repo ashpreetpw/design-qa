@@ -1,0 +1,42 @@
+From b1ea2b6c0932f9c377f0226b031b244a3ff031ba Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:15 +0530
+Subject: [PATCH 07/12] =?UTF-8?q?design-qa:=20Typography=20fix=20in=20Clas?=
+ =?UTF-8?q?sSelector=20label=20=E2=80=94=20Body/Regular=20=E2=86=92=20Subh?=
+ =?UTF-8?q?eading?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-008
+Date: 2026-04-20
+Figma node: I3235:5083;5112:52577
+Property: font-size / line-height
+Expected: 16px / 24px SemiBold (Subheading/Semi Bold, text-sub)
+Actual: 14px / 20px (text-regular)
+Severity: Medium
+File: src/components/ClassSelector.tsx:16-18
+
+Reasoning: Figma Subheading/Semi Bold for the selected-goal label.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/ClassSelector.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/ClassSelector.tsx b/src/components/ClassSelector.tsx
+index 30ddf1f..e05815e 100644
+--- a/src/components/ClassSelector.tsx
++++ b/src/components/ClassSelector.tsx
+@@ -13,7 +13,7 @@ export default function ClassSelector() {
+           <span className="flex h-[24px] w-[24px] items-center justify-center rounded-sm bg-white text-sub">
+             🎯
+           </span>
+-          <span className="text-regular font-semibold text-heading">
++          <span className="text-sub font-semibold text-heading">
+             Class 11 NEET
+           </span>
+         </div>
+-- 
+2.34.1
+

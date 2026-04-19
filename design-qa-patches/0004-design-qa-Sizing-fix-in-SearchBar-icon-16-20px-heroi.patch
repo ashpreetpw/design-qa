@@ -1,0 +1,48 @@
+From 8ebe7e69c16c50f01c4b1b48dc82f8eecea7d556 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:03:50 +0530
+Subject: [PATCH 04/12] =?UTF-8?q?design-qa:=20Sizing=20fix=20in=20SearchBa?=
+ =?UTF-8?q?r=20icon=20=E2=80=94=2016=E2=86=9220px=20heroicons-mini=20magni?=
+ =?UTF-8?q?fying-glass?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-005
+Date: 2026-04-20
+Figma node: I3235:5081;8485:38041
+Property: icon size
+Expected: 20×20 heroicons-mini/magnifying-glass
+Actual: 16×16 custom svg
+Severity: Medium
+File: src/components/TopNav.tsx:27-30
+
+Reasoning: Figma uses the 20×20 heroicons-mini magnifying-glass. Geometry
+is scaled proportionally (cx/cy, r, path coords) so stroke weight reads
+consistently at the new size.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/TopNav.tsx | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/components/TopNav.tsx b/src/components/TopNav.tsx
+index 01a7882..d562df6 100644
+--- a/src/components/TopNav.tsx
++++ b/src/components/TopNav.tsx
+@@ -24,9 +24,9 @@ export default function TopNav() {
+         data-component="SearchBar"
+         className="flex flex-1 items-center gap-6 rounded-sm bg-white px-12 py-8 border border-strokeMed"
+       >
+-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+-          <circle cx="7" cy="7" r="5.25" stroke="#7b7f86" strokeWidth="1.5" />
+-          <path d="M11 11L14 14" stroke="#7b7f86" strokeWidth="1.5" strokeLinecap="round" />
++        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
++          <circle cx="9" cy="9" r="6.25" stroke="#7b7f86" strokeWidth="1.5" />
++          <path d="M13.5 13.5L17 17" stroke="#7b7f86" strokeWidth="1.5" strokeLinecap="round" />
+         </svg>
+         <span className="text-regular text-body2">Search for Arjuna</span>
+       </div>
+-- 
+2.34.1
+

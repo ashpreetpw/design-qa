@@ -1,0 +1,43 @@
+From d6da97d53cd2bdbe323c59fee44d1414396c4add Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:03:22 +0530
+Subject: [PATCH 01/12] =?UTF-8?q?design-qa:=20Spacing=20fix=20in=20TopNav?=
+ =?UTF-8?q?=20=E2=80=94=20gap/py=20swap=20(gap-12=20py-8=20=E2=86=92=20gap?=
+ =?UTF-8?q?-8=20py-12)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-001
+Date: 2026-04-20
+Figma node: 3235:5079
+Property: gap + vertical padding
+Expected: gap: 8px, py: 12px
+Actual: gap: 12px, py: 8px
+Severity: Medium
+File: src/components/TopNav.tsx:11
+
+Reasoning: Figma primary nav row specifies gap-[var(--p-8,8px)] and
+py-[var(--p-12,12px)]. Code had the two values swapped.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/TopNav.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/TopNav.tsx b/src/components/TopNav.tsx
+index a0c22f6..0b72ec2 100644
+--- a/src/components/TopNav.tsx
++++ b/src/components/TopNav.tsx
+@@ -8,7 +8,7 @@ export default function TopNav() {
+   return (
+     <div
+       data-component="TopNav"
+-      className="flex items-center gap-12 px-16 pt-8 pb-8"
++      className="flex items-center gap-8 px-16 pt-12 pb-12"
+     >
+       <button
+         aria-label="Open menu"
+-- 
+2.34.1
+

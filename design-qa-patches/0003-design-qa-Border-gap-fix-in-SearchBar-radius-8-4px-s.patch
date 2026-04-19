@@ -1,0 +1,43 @@
+From 2664d4d425851558bd6848133e851e1b8133c63f Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:03:40 +0530
+Subject: [PATCH 03/12] =?UTF-8?q?design-qa:=20Border/gap=20fix=20in=20Sear?=
+ =?UTF-8?q?chBar=20=E2=80=94=20radius=208=E2=86=924px,=20stroke=20light?=
+ =?UTF-8?q?=E2=86=92medium,=20gap=208=E2=86=926px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-003 (folds in F-004)
+Date: 2026-04-20
+Figma node: 3235:5081
+Property: border-color + border-radius + inner gap
+Expected: rounded 4px, 1px solid #b7b7b7 (stroke/medium), gap 6px
+Actual: rounded-md 8px, 1px solid #d9dce1 (strokeLight), gap 8px
+Severity: High
+File: src/components/TopNav.tsx:25
+
+Reasoning: Figma search box uses rounded-[var(--p-4,4px)] with stroke/medium
+(#b7b7b7). Also folds in F-004 since the gap token lives in the same class.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/TopNav.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/TopNav.tsx b/src/components/TopNav.tsx
+index fc85774..01a7882 100644
+--- a/src/components/TopNav.tsx
++++ b/src/components/TopNav.tsx
+@@ -22,7 +22,7 @@ export default function TopNav() {
+       </button>
+       <div
+         data-component="SearchBar"
+-        className="flex flex-1 items-center gap-8 rounded-md bg-white px-12 py-8 border border-strokeLight"
++        className="flex flex-1 items-center gap-6 rounded-sm bg-white px-12 py-8 border border-strokeMed"
+       >
+         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+           <circle cx="7" cy="7" r="5.25" stroke="#7b7f86" strokeWidth="1.5" />
+-- 
+2.34.1
+

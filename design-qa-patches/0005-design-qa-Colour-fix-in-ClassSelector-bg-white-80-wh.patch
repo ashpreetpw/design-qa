@@ -1,0 +1,44 @@
+From ea4f9c409195922584a74bc8cf84ad6033cc0fbe Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:03:58 +0530
+Subject: [PATCH 05/12] =?UTF-8?q?design-qa:=20Colour=20fix=20in=20ClassSel?=
+ =?UTF-8?q?ector=20=E2=80=94=20bg=20white/80=20=E2=86=92=20white/30,=20dro?=
+ =?UTF-8?q?p=20border?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-006
+Date: 2026-04-20
+Figma node: 3235:5083
+Property: background opacity + border
+Expected: bg rgba(255,255,255,0.30); no border; no backdrop-blur
+Actual: bg-white/80 backdrop-blur border border-white
+Severity: High
+File: src/components/ClassSelector.tsx:10-11
+
+Reasoning: Figma secondaryNav is 30% white so the orange gradient shows
+through. The white border and backdrop-blur were added in code but don't
+appear in the design.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/ClassSelector.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/ClassSelector.tsx b/src/components/ClassSelector.tsx
+index a6e59b6..9269769 100644
+--- a/src/components/ClassSelector.tsx
++++ b/src/components/ClassSelector.tsx
+@@ -7,7 +7,7 @@ export default function ClassSelector() {
+     <div className="px-16 pt-2 pb-12">
+       <div
+         data-component="ClassSelector"
+-        className="flex items-center justify-between rounded-md bg-white/80 backdrop-blur px-16 py-8 border border-white"
++        className="flex items-center justify-between rounded-md bg-white/30 px-16 py-8"
+       >
+         <div className="flex items-center gap-8">
+           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-tiny text-white font-bold">
+-- 
+2.34.1
+
