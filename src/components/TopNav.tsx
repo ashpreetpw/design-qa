@@ -8,7 +8,7 @@ export default function TopNav() {
   return (
     <div
       data-component="TopNav"
-      className="flex items-center gap-12 px-16 pt-8 pb-8"
+      className="flex items-center gap-12 px-20 pt-8 pb-8"
     >
       <button
         aria-label="Open menu"
