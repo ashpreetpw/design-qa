@@ -1,0 +1,44 @@
+From 4e2e4223f717777d97df9d66d98c53ffed3dbc8e Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:03:30 +0530
+Subject: [PATCH 02/12] =?UTF-8?q?design-qa:=20Sizing=20fix=20in=20TopNav?=
+ =?UTF-8?q?=20menu=20button=20=E2=80=94=2010=C3=9710=20=E2=86=92=2040?=
+ =?UTF-8?q?=C3=9740=20tap=20target?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-002
+Date: 2026-04-20
+Figma node: 3235:5080
+Property: button size
+Expected: 40×40 (24px icon + 8px padding)
+Actual: 10×10 (h-10 w-10; project tailwind config maps `10` → 10px)
+Severity: High
+File: src/components/TopNav.tsx:15
+
+Reasoning: tailwind.config.js defines spacing.10 = "10px" (not 40px), so
+h-10 w-10 rendered a 10×10 container and the 20×14 svg overflowed it.
+h-40 w-40 resolves to 40×40 per the same config.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/TopNav.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/TopNav.tsx b/src/components/TopNav.tsx
+index 0b72ec2..fc85774 100644
+--- a/src/components/TopNav.tsx
++++ b/src/components/TopNav.tsx
+@@ -12,7 +12,7 @@ export default function TopNav() {
+     >
+       <button
+         aria-label="Open menu"
+-        className="flex h-10 w-10 items-center justify-center text-heading"
++        className="flex h-40 w-40 items-center justify-center text-heading"
+       >
+         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden>
+           <rect y="0" width="20" height="2" rx="1" fill="currentColor" />
+-- 
+2.34.1
+

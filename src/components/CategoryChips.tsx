@@ -19,7 +19,7 @@ const chips: Chip[] = [
  */
 export default function CategoryChips() {
   return (
-    <div className="px-16 pt-2 pb-16">
+    <div className="px-16 pt-16 pb-16">
       <div className="flex gap-8">
         {chips.map((chip, i) => (
           <CategoryChip key={i} chip={chip} />
@@ -47,7 +47,7 @@ function CategoryChip({ chip }: { chip: Chip }) {
         </div>
         <div
           className="text-center font-extrabold leading-tight"
-          style={{ color: "#631b00", fontSize: "12px" }}
+          style={{ color: "#631b00", fontSize: "14px" }}
         >
           {chip.title}
         </div>
@@ -59,7 +59,7 @@ function CategoryChip({ chip }: { chip: Chip }) {
         </div>
         <div
           className="text-center"
-          style={{ color: "#974424", fontSize: "9px", lineHeight: "11px" }}
+          style={{ color: "#974424", fontSize: "9px", lineHeight: "13px" }}
         >
           {chip.subtitle}
         </div>

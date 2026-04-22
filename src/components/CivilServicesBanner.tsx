@@ -17,21 +17,19 @@ export default function CivilServicesBanner() {
       >
         <div className="flex flex-col items-center pt-16 pb-12">
           <h1
-            className="font-serif text-heading"
+            className="font-serif text-heading whitespace-nowrap"
             style={{
-              fontSize: "32px",
-              lineHeight: "34px",
+              fontSize: "38px",
+              lineHeight: "normal",
               color: "#962c03",
               letterSpacing: "0.01em",
               textAlign: "center",
             }}
           >
-            CIVIL SERVICES
-            <br />
-            DAY
+            CIVIL SERVICES DAY
           </h1>
-          <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-6">
-            <span className="text-tiny font-bold text-white uppercase">
+          <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-2">
+            <span className="text-small font-bold text-white uppercase">
               OFFERS ARE LIVE!
             </span>
           </div>

@@ -1,0 +1,41 @@
+From d871c023e1b617d4d771881eee7d4d78e6e241cf Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:41 +0530
+Subject: [PATCH 10/12] =?UTF-8?q?design-qa:=20Spacing=20fix=20in=20Categor?=
+ =?UTF-8?q?yChips=20container=20=E2=80=94=20pt=202=E2=86=9216px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-011
+Date: 2026-04-20
+Figma node: 3235:5096
+Property: top padding
+Expected: 16px top padding (container p-[16px] all sides)
+Actual: 2px top padding (pt-2)
+Severity: Low
+File: src/components/CategoryChips.tsx:22
+
+Reasoning: Figma container pads the offering list 16px on every side.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/CategoryChips.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/CategoryChips.tsx b/src/components/CategoryChips.tsx
+index 36bde16..4aa2a9b 100644
+--- a/src/components/CategoryChips.tsx
++++ b/src/components/CategoryChips.tsx
+@@ -19,7 +19,7 @@ const chips: Chip[] = [
+  */
+ export default function CategoryChips() {
+   return (
+-    <div className="px-16 pt-2 pb-16">
++    <div className="px-16 pt-16 pb-16">
+       <div className="flex gap-8">
+         {chips.map((chip, i) => (
+           <CategoryChip key={i} chip={chip} />
+-- 
+2.34.1
+

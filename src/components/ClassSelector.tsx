@@ -7,13 +7,13 @@ export default function ClassSelector() {
     <div className="px-16 pt-2 pb-12">
       <div
         data-component="ClassSelector"
-        className="flex items-center justify-between rounded-md bg-white/80 backdrop-blur px-16 py-8 border border-white"
+        className="flex items-center justify-between rounded-md bg-white/30 px-16 py-8"
       >
         <div className="flex items-center gap-8">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-tiny text-white font-bold">
+          <span className="flex h-[24px] w-[24px] items-center justify-center rounded-sm bg-white text-sub">
             🎯
           </span>
-          <span className="text-regular font-semibold text-heading">
+          <span className="text-sub font-semibold text-heading">
             Class 11 NEET
           </span>
         </div>

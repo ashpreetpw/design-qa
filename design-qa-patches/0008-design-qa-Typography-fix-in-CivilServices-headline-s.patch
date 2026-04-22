@@ -1,0 +1,56 @@
+From 3e98dafd43df8d9bb03e43182a05571e29f5c549 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:25 +0530
+Subject: [PATCH 08/12] =?UTF-8?q?design-qa:=20Typography=20fix=20in=20Civi?=
+ =?UTF-8?q?lServices=20headline=20=E2=80=94=20single-line=2038px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-009
+Date: 2026-04-20
+Figma node: 3235:5949
+Property: font-size + line-break
+Expected: single-line 'CIVIL SERVICES DAY', 38px Instrument Serif
+Actual: two lines via <br>, 32px / line-height 34px
+Severity: Medium
+File: src/components/CivilServicesBanner.tsx:19-32
+
+Reasoning: Figma headline is a single-line Instrument Serif 38px. Added
+whitespace-nowrap as defence-in-depth against narrow containers.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/CivilServicesBanner.tsx | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/src/components/CivilServicesBanner.tsx b/src/components/CivilServicesBanner.tsx
+index 09101e8..96ec588 100644
+--- a/src/components/CivilServicesBanner.tsx
++++ b/src/components/CivilServicesBanner.tsx
+@@ -17,18 +17,16 @@ export default function CivilServicesBanner() {
+       >
+         <div className="flex flex-col items-center pt-16 pb-12">
+           <h1
+-            className="font-serif text-heading"
++            className="font-serif text-heading whitespace-nowrap"
+             style={{
+-              fontSize: "32px",
+-              lineHeight: "34px",
++              fontSize: "38px",
++              lineHeight: "normal",
+               color: "#962c03",
+               letterSpacing: "0.01em",
+               textAlign: "center",
+             }}
+           >
+-            CIVIL SERVICES
+-            <br />
+-            DAY
++            CIVIL SERVICES DAY
+           </h1>
+           <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-6">
+             <span className="text-tiny font-bold text-white uppercase">
+-- 
+2.34.1
+

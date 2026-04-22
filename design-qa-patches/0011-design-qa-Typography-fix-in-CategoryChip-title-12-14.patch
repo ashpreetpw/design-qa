@@ -1,0 +1,42 @@
+From 3007d8f528f8c8613cf1cc2081707889ff712f77 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:48 +0530
+Subject: [PATCH 11/12] =?UTF-8?q?design-qa:=20Typography=20fix=20in=20Cate?=
+ =?UTF-8?q?goryChip=20title=20=E2=80=94=2012=E2=86=9214px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-012
+Date: 2026-04-20
+Figma nodes: 3235:74140 (PRARAMBH), 3235:74156 (SANKALP)
+Property: font-size
+Expected: 14px ExtraBold
+Actual: 12px ExtraBold
+Severity: Medium
+File: src/components/CategoryChips.tsx:48-52
+
+Reasoning: Figma offering-card titles are 14px ExtraBold. Code had them at
+12px, making them hard to read against the gradient.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/CategoryChips.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/components/CategoryChips.tsx b/src/components/CategoryChips.tsx
+index 4aa2a9b..d66e8b2 100644
+--- a/src/components/CategoryChips.tsx
++++ b/src/components/CategoryChips.tsx
+@@ -47,7 +47,7 @@ function CategoryChip({ chip }: { chip: Chip }) {
+         </div>
+         <div
+           className="text-center font-extrabold leading-tight"
+-          style={{ color: "#631b00", fontSize: "12px" }}
++          style={{ color: "#631b00", fontSize: "14px" }}
+         >
+           {chip.title}
+         </div>
+-- 
+2.34.1
+

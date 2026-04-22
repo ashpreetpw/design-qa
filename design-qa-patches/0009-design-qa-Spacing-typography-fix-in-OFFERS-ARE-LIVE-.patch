@@ -1,0 +1,45 @@
+From 0f3a9359f03be472b2b52ce2993ecd22639823c0 Mon Sep 17 00:00:00 2001
+From: Design VP <design.vidyapeeth@pw.live>
+Date: Mon, 20 Apr 2026 01:04:34 +0530
+Subject: [PATCH 09/12] =?UTF-8?q?design-qa:=20Spacing/typography=20fix=20i?=
+ =?UTF-8?q?n=20OFFERS=20ARE=20LIVE=20pill=20=E2=80=94=20py=206=E2=86=922px?=
+ =?UTF-8?q?,=2010=E2=86=9212px?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Finding: F-010
+Date: 2026-04-20
+Figma nodes: 3235:5951 (pill), 3235:5950 (label)
+Property: vertical padding + font-size
+Expected: py 2px; font-size 12px Bold (text-small)
+Actual: py 6px; font-size 10px (text-tiny)
+Severity: Medium
+File: src/components/CivilServicesBanner.tsx:33-37
+
+Reasoning: Figma badge is compact (py 2px) with 12px Bold text. Code
+was making the pill taller and the label too small.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+---
+ src/components/CivilServicesBanner.tsx | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/components/CivilServicesBanner.tsx b/src/components/CivilServicesBanner.tsx
+index 96ec588..060cdba 100644
+--- a/src/components/CivilServicesBanner.tsx
++++ b/src/components/CivilServicesBanner.tsx
+@@ -28,8 +28,8 @@ export default function CivilServicesBanner() {
+           >
+             CIVIL SERVICES DAY
+           </h1>
+-          <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-6">
+-            <span className="text-tiny font-bold text-white uppercase">
++          <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-2">
++            <span className="text-small font-bold text-white uppercase">
+               OFFERS ARE LIVE!
+             </span>
+           </div>
+-- 
+2.34.1
+
