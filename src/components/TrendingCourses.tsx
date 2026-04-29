@@ -9,7 +9,7 @@ export default function TrendingCourses() {
   return (
     <section
       data-component="TrendingCourses"
-      className="flex flex-col gap-16 px-16 pt-16 pb-12"
+      className="flex flex-col gap-16 px-16 pt-16 pb-16"
     >
       <h2 className="text-h3 font-semibold text-heading">Trending Courses</h2>
 
