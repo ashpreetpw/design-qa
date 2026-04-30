@@ -21,16 +21,16 @@ export default function CivilServicesBanner() {
             style={{
               fontSize: "38px",
               lineHeight: "normal",
-              color: "#962c03",
+              color: "blue",
               letterSpacing: "0.01em",
               textAlign: "center",
             }}
           >
-            CIVIL SERVICES DAY
+            CIVIL SERVICES OFFERS
           </h1>
           <div className="mt-8 inline-flex items-center gap-6 rounded-full bg-green-500 px-12 py-2">
             <span className="text-small font-bold text-white uppercase">
-              OFFERS ARE LIVE!
+              MEGA SALE!
             </span>
           </div>
           <div
