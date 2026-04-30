@@ -35,7 +35,7 @@ export default function CivilServicesBanner() {
           </div>
           <div
             aria-hidden
-            className="mt-6 flex h-[72px] w-[220px] items-end justify-center text-4xl"
+            className="mt-6 flex h-[72px] w-[220px] items-end justify-center text-3xl"
             style={{
               background:
                 "radial-gradient(ellipse at bottom, #e88a3a 0%, transparent 70%)",
