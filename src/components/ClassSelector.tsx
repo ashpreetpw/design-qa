@@ -4,7 +4,7 @@
  */
 export default function ClassSelector() {
   return (
-    <div className="px-16 pt-2 pb-12">
+    <div className="px-16 pt-0 pb-8">
       <div
         data-component="ClassSelector"
         className="flex items-center justify-between rounded-md bg-white/30 px-16 py-8"
