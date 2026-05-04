@@ -107,6 +107,9 @@ export default function TrendingCourses() {
       <button
         data-component="ViewAllBatchesButton"
         className="rounded border border-brand-primary py-10 text-regular font-semibold text-brand-primary"
+        onClick={() => {
+          document.getElementById('all-courses')?.scrollIntoView({ behavior: 'smooth' });
+        }}
       >
         View All Batches
       </button>
