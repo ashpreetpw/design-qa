@@ -19,13 +19,12 @@ export default function App() {
         data-component="MobileFrame"
         className="relative w-[360px] min-h-screen bg-white shadow-card overflow-hidden"
       >
-        {/* Orange gradient backdrop for the header area */}
-        <div className="absolute inset-x-0 top-0 h-[420px] pointer-events-none"
-             style={{
-               background: "linear-gradient(180deg, #ffb46d 0%, #ffd9b3 60%, #ffffff 100%)",
-             }}
-        />
-
+        {/* Gradient backdrop with glow for the header area */}
+        <div className="absolute inset-x-0 top-0 h-[400px] pointer-events-none bg-gradient-to-b from-[#ade6c6] to-transparent to-[78%] overflow-hidden">
+          <div className="absolute bottom-[60px] h-[334px] left-1/2 w-[644px] -translate-x-1/2 pointer-events-none">
+            <img alt="" className="absolute inset-0 block max-w-none w-full h-full" src="/assets/glow.svg" />
+          </div>
+        </div>
         <div className="relative z-10">
           <StatusBar />
           <TopNav />
