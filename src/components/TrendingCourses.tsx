@@ -5,7 +5,11 @@ import CourseCard from "./CourseCard";
  * The three cards mirror the Figma design: Arjuna (green / Hinglish),
  * Arjuna (yellow / Hindi), and the gray Power Batch card.
  */
-export default function TrendingCourses() {
+export type TrendingCoursesProps = {
+  onAddToCart?: () => void;
+};
+
+export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
   return (
     <section
       data-component="TrendingCourses"
@@ -26,6 +30,7 @@ export default function TrendingCourses() {
           discount="11% OFF"
           cta="Buy Now"
           flagLine="Multiple plans inside: Infinity & Infinity Pro"
+          onAddToCart={onAddToCart}
         />
 
         <CourseCard
@@ -40,6 +45,7 @@ export default function TrendingCourses() {
           discount="36% OFF"
           cta="Buy Now"
           flagLine="Limited Time Offer: Get it for ₹6,999 till 8th Feb"
+          onAddToCart={onAddToCart}
         />
 
         <CourseCard
@@ -53,6 +59,7 @@ export default function TrendingCourses() {
           discount="For Seat Booking"
           cta="Book A Seat"
           flagLine="Power Batch: Small Group Online Classes"
+          onAddToCart={onAddToCart}
         />
       </div>
 

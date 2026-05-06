@@ -5,6 +5,8 @@ import CivilServicesBanner from "./components/CivilServicesBanner";
 import CategoryChips from "./components/CategoryChips";
 import TrendingCourses from "./components/TrendingCourses";
 import WhatsNew from "./components/WhatsNew";
+import FloatingCartBar from "./components/FloatingCartBar";
+import { useState } from "react";
 
 /**
  * App root — mobile-only composition of the course-app home screen.
@@ -12,6 +14,12 @@ import WhatsNew from "./components/WhatsNew";
  * frame is the implementation of Figma node 3235-4269.
  */
 export default function App() {
+  const [cartCount, setCartCount] = useState(0);
+
+  const handleAddToCart = () => {
+    setCartCount((c) => c + 1);
+  };
+
   return (
     <div className="min-h-screen w-full bg-gray-200 flex justify-center">
       <div
@@ -34,9 +42,11 @@ export default function App() {
         </div>
 
         <div className="relative z-10 bg-white">
-          <TrendingCourses />
+          <TrendingCourses onAddToCart={handleAddToCart} />
           <WhatsNew />
         </div>
+
+        <FloatingCartBar cartCount={cartCount} />
       </div>
     </div>
   );
