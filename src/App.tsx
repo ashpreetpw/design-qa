@@ -6,6 +6,7 @@ import CategoryChips from "./components/CategoryChips";
 import TrendingCourses from "./components/TrendingCourses";
 import WhatsNew from "./components/WhatsNew";
 import CourseCard from "./components/CourseCard";
+import DoubtBubble from "./components/DoubtBubble";
 
 /**
  * App root — mobile-only composition of the course-app home screen.
@@ -80,6 +81,7 @@ export default function App() {
             </div>
           </div>
         </div>
+        <DoubtBubble />
       </div>
     </div>
   );
