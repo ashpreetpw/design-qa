@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CourseCard, { CourseCardProps } from "./CourseCard";
 import SkeletonCard from "./SkeletonCard";
-import CourseDetailsModal from "./CourseDetailsModal";
 
 const COURSES: CourseCardProps[] = [
   {
@@ -48,14 +47,21 @@ const COURSES: CourseCardProps[] = [
  * TrendingCourses — section header + three course cards + "View All Batches".
  * The three cards mirror the Figma design: Arjuna (green / Hinglish),
  * Arjuna (yellow / Hindi), and the gray Power Batch card.
+ *
+ * Both the buy/book CTA and the card click are wired here:
+ *  - onAddToCart: bumps the floating cart count (handled in App).
+ *  - onCourseClick: opens the shared CourseDetailsModal (state in App).
  */
 export type TrendingCoursesProps = {
   onAddToCart?: () => void;
+  onCourseClick?: (course: CourseCardProps) => void;
 };
 
-export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
+export default function TrendingCourses({
+  onAddToCart,
+  onCourseClick,
+}: TrendingCoursesProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [selectedCourse, setSelectedCourse] = useState<CourseCardProps | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -73,49 +79,6 @@ export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
       <h2 className="text-h3 font-semibold text-heading">Trending Courses</h2>
 
       <div className="flex flex-col gap-12">
-        <CourseCard
-          variant="green"
-          classTag="Class 11 NEET"
-          langBadge="HINGLISH"
-          title="Arjuna"
-          batchName="NEET 2026"
-          startDate="Starts on 14th Apr'25"
-          price="₹4,999"
-          oldPrice="₹5600"
-          discount="11% OFF"
-          cta="Buy Now"
-          flagLine="Multiple plans inside: Infinity & Infinity Pro"
-          onAddToCart={onAddToCart}
-        />
-
-        <CourseCard
-          variant="yellow"
-          classTag="Class 11 NEET"
-          langBadge="हिंदी"
-          title="अर्जुना"
-          batchName="NEET 2026"
-          startDate="Starts on 14th Apr'25"
-          price="₹3,199"
-          oldPrice="₹5000"
-          discount="36% OFF"
-          cta="Buy Now"
-          flagLine="Limited Time Offer: Get it for ₹6,999 till 8th Feb"
-          onAddToCart={onAddToCart}
-        />
-
-        <CourseCard
-          variant="gray"
-          classTag="NEET 2027"
-          langBadge="हिंglish"
-          title="Power Batch"
-          batchName="Small Group Online Classes"
-          startDate="Starts on 8th Jan'25"
-          price="₹499"
-          discount="For Seat Booking"
-          cta="Book A Seat"
-          flagLine="Power Batch: Small Group Online Classes"
-          onAddToCart={onAddToCart}
-        />
         {isLoading ? (
           <>
             <SkeletonCard />
@@ -123,15 +86,14 @@ export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
             <SkeletonCard />
           </>
         ) : (
-          <>
-            {COURSES.map((course, idx) => (
-              <CourseCard
-                key={idx}
-                {...course}
-                onClick={() => setSelectedCourse(course)}
-              />
-            ))}
-          </>
+          COURSES.map((course, idx) => (
+            <CourseCard
+              key={idx}
+              {...course}
+              onAddToCart={onAddToCart}
+              onClick={() => onCourseClick?.(course)}
+            />
+          ))
         )}
       </div>
 
@@ -144,13 +106,6 @@ export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
       >
         View All Batches
       </button>
-
-      {selectedCourse && (
-        <CourseDetailsModal
-          course={selectedCourse}
-          onClose={() => setSelectedCourse(null)}
-        />
-      )}
     </section>
   );
 }
