@@ -60,6 +60,7 @@ export default function App() {
                 discount="25% OFF"
                 cta="Buy Now"
                 flagLine="Includes infinite test series"
+                onAddToCart={handleAddToCart}
               />
               <CourseCard
                 variant="yellow"
@@ -73,6 +74,7 @@ export default function App() {
                 discount="26% OFF"
                 cta="Buy Now"
                 flagLine="Live Interactive Classes"
+                onAddToCart={handleAddToCart}
               />
               <CourseCard
                 variant="gray"
@@ -85,14 +87,18 @@ export default function App() {
                 discount="Early Bird"
                 cta="Enroll Now"
                 flagLine="Complete Science & Math"
+                onAddToCart={handleAddToCart}
               />
             </div>
           </div>
         </div>
 
-        <FloatingCartBar cartCount={cartCount} />
         <DoubtBubble />
       </div>
+
+      {/* FloatingCartBar must live OUTSIDE the overflow-hidden frame so
+          its fixed positioning isn't clipped by the parent stacking context */}
+      <FloatingCartBar cartCount={cartCount} />
     </div>
   );
 }

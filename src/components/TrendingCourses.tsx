@@ -54,7 +54,6 @@ export type TrendingCoursesProps = {
 };
 
 export default function TrendingCourses({ onAddToCart }: TrendingCoursesProps) {
-export default function TrendingCourses() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedCourse, setSelectedCourse] = useState<CourseCardProps | null>(null);
 
