@@ -19,6 +19,7 @@ export type CourseCardProps = {
   cta: string;               // "Buy Now"
   flagLine?: string;         // "Multiple plans inside: Infinity & Infinity Pro"
   onAddToCart?: () => void;
+  onClick?: () => void;
 };
 
 const heroGradients: Record<NonNullable<CourseCardProps["variant"]>, string> = {
@@ -40,11 +41,13 @@ export default function CourseCard({
   cta,
   flagLine,
   onAddToCart,
+  onClick,
 }: CourseCardProps) {
   return (
     <div
+      onClick={onClick}
       data-component="CourseCard"
-      className="overflow-hidden rounded-xl border border-strokeLight bg-white"
+      className="overflow-hidden rounded-xl border border-strokeLight bg-white cursor-pointer"
     >
       {/* Hero area — teachers + big watermark title */}
       <div
