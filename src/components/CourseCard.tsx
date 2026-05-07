@@ -18,6 +18,7 @@ export type CourseCardProps = {
   discount?: string;         // "11% OFF"
   cta: string;               // "Buy Now"
   flagLine?: string;         // "Multiple plans inside: Infinity & Infinity Pro"
+  onAddToCart?: () => void;
 };
 
 const heroGradients: Record<NonNullable<CourseCardProps["variant"]>, string> = {
@@ -38,6 +39,7 @@ export default function CourseCard({
   discount,
   cta,
   flagLine,
+  onAddToCart,
 }: CourseCardProps) {
   return (
     <div
@@ -104,7 +106,10 @@ export default function CourseCard({
               </span>
             )}
           </div>
-          <button className="rounded bg-heading px-20 py-10 text-regular font-semibold text-white">
+          <button 
+            className="rounded bg-heading px-20 py-10 text-regular font-semibold text-white"
+            onClick={() => onAddToCart && onAddToCart()}
+          >
             {cta}
           </button>
         </div>
