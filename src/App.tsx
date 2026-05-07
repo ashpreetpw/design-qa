@@ -5,6 +5,8 @@ import CivilServicesBanner from "./components/CivilServicesBanner";
 import CategoryChips from "./components/CategoryChips";
 import TrendingCourses from "./components/TrendingCourses";
 import WhatsNew from "./components/WhatsNew";
+import FloatingCartBar from "./components/FloatingCartBar";
+import { useState } from "react";
 import CourseCard from "./components/CourseCard";
 import DoubtBubble from "./components/DoubtBubble";
 
@@ -14,6 +16,12 @@ import DoubtBubble from "./components/DoubtBubble";
  * frame is the implementation of Figma node 3235-4269.
  */
 export default function App() {
+  const [cartCount, setCartCount] = useState(0);
+
+  const handleAddToCart = () => {
+    setCartCount((c) => c + 1);
+  };
+
   return (
     <div className="min-h-screen w-full bg-gray-200 flex justify-center">
       <div
@@ -35,7 +43,7 @@ export default function App() {
         </div>
 
         <div className="relative z-10 bg-white">
-          <TrendingCourses />
+          <TrendingCourses onAddToCart={handleAddToCart} />
           <WhatsNew />
           <div id="all-courses" className="px-16 pt-16 pb-40 text-left">
             <h2 className="text-h3 font-semibold text-heading mb-12">All Courses</h2>
@@ -81,6 +89,8 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        <FloatingCartBar cartCount={cartCount} />
         <DoubtBubble />
       </div>
     </div>
