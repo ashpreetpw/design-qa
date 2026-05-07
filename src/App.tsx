@@ -7,19 +7,75 @@ import TrendingCourses from "./components/TrendingCourses";
 import WhatsNew from "./components/WhatsNew";
 import FloatingCartBar from "./components/FloatingCartBar";
 import { useState } from "react";
-import CourseCard from "./components/CourseCard";
+import CourseCard, { CourseCardProps } from "./components/CourseCard";
+import CourseDetailsModal from "./components/CourseDetailsModal";
 import DoubtBubble from "./components/DoubtBubble";
+
+/**
+ * Static list for the "All Courses" section. Defined here so each card can
+ * be passed to the lifted modal handler with the right course payload.
+ */
+const ALL_COURSES: CourseCardProps[] = [
+  {
+    variant: "green",
+    classTag: "Class 12",
+    langBadge: "HINGLISH",
+    title: "Lakshya JEE",
+    batchName: "JEE 2026",
+    startDate: "Starts on 20th May'25",
+    price: "₹4,500",
+    oldPrice: "₹6000",
+    discount: "25% OFF",
+    cta: "Buy Now",
+    flagLine: "Includes infinite test series",
+  },
+  {
+    variant: "yellow",
+    classTag: "UPSC CSE",
+    langBadge: "HINDI",
+    title: "Sankalp UPSC",
+    batchName: "UPSC 2026",
+    startDate: "Starts on 1st Jun'25",
+    price: "₹10,999",
+    oldPrice: "₹15000",
+    discount: "26% OFF",
+    cta: "Buy Now",
+    flagLine: "Live Interactive Classes",
+  },
+  {
+    variant: "gray",
+    classTag: "Class 10",
+    langBadge: "ENGLISH",
+    title: "Udaan Fastrack",
+    batchName: "Board Exams 2026",
+    startDate: "Starts on 15th Mar'25",
+    price: "₹2,499",
+    discount: "Early Bird",
+    cta: "Enroll Now",
+    flagLine: "Complete Science & Math",
+  },
+];
 
 /**
  * App root — mobile-only composition of the course-app home screen.
  * Outer gray page centers a 360px mobile frame; everything inside the
  * frame is the implementation of Figma node 3235-4269.
+ *
+ * Modal state lives here (lifted from TrendingCourses) so a single
+ * CourseDetailsModal serves both the Trending and All Courses sections.
  */
 export default function App() {
   const [cartCount, setCartCount] = useState(0);
+  const [selectedCourse, setSelectedCourse] = useState<CourseCardProps | null>(
+    null
+  );
 
   const handleAddToCart = () => {
     setCartCount((c) => c + 1);
+  };
+
+  const handleCourseClick = (course: CourseCardProps) => {
+    setSelectedCourse(course);
   };
 
   return (
@@ -43,52 +99,22 @@ export default function App() {
         </div>
 
         <div className="relative z-10 bg-white">
-          <TrendingCourses onAddToCart={handleAddToCart} />
+          <TrendingCourses
+            onAddToCart={handleAddToCart}
+            onCourseClick={handleCourseClick}
+          />
           <WhatsNew />
           <div id="all-courses" className="px-16 pt-16 pb-40 text-left">
             <h2 className="text-h3 font-semibold text-heading mb-12">All Courses</h2>
             <div className="flex flex-col gap-12">
-              <CourseCard
-                variant="green"
-                classTag="Class 12"
-                langBadge="HINGLISH"
-                title="Lakshya JEE"
-                batchName="JEE 2026"
-                startDate="Starts on 20th May'25"
-                price="₹4,500"
-                oldPrice="₹6000"
-                discount="25% OFF"
-                cta="Buy Now"
-                flagLine="Includes infinite test series"
-                onAddToCart={handleAddToCart}
-              />
-              <CourseCard
-                variant="yellow"
-                classTag="UPSC CSE"
-                langBadge="HINDI"
-                title="Sankalp UPSC"
-                batchName="UPSC 2026"
-                startDate="Starts on 1st Jun'25"
-                price="₹10,999"
-                oldPrice="₹15000"
-                discount="26% OFF"
-                cta="Buy Now"
-                flagLine="Live Interactive Classes"
-                onAddToCart={handleAddToCart}
-              />
-              <CourseCard
-                variant="gray"
-                classTag="Class 10"
-                langBadge="ENGLISH"
-                title="Udaan Fastrack"
-                batchName="Board Exams 2026"
-                startDate="Starts on 15th Mar'25"
-                price="₹2,499"
-                discount="Early Bird"
-                cta="Enroll Now"
-                flagLine="Complete Science & Math"
-                onAddToCart={handleAddToCart}
-              />
+              {ALL_COURSES.map((course, idx) => (
+                <CourseCard
+                  key={idx}
+                  {...course}
+                  onAddToCart={handleAddToCart}
+                  onClick={() => handleCourseClick(course)}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -99,6 +125,15 @@ export default function App() {
       {/* FloatingCartBar must live OUTSIDE the overflow-hidden frame so
           its fixed positioning isn't clipped by the parent stacking context */}
       <FloatingCartBar cartCount={cartCount} />
+
+      {/* Single modal instance, driven by lifted state, so every card
+          (Trending + All Courses) opens the same modal */}
+      {selectedCourse && (
+        <CourseDetailsModal
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
+        />
+      )}
     </div>
   );
 }

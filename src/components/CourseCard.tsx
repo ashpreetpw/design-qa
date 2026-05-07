@@ -47,7 +47,7 @@ export default function CourseCard({
     <div
       onClick={onClick}
       data-component="CourseCard"
-      className="overflow-hidden rounded-xl border border-strokeLight bg-white cursor-pointer"
+      className={`overflow-hidden rounded-xl border border-strokeLight bg-white ${onClick ? "cursor-pointer" : ""}`}
     >
       {/* Hero area — teachers + big watermark title */}
       <div
@@ -111,7 +111,7 @@ export default function CourseCard({
           </div>
           <button 
             className="rounded bg-heading px-20 py-10 text-regular font-semibold text-white"
-            onClick={() => onAddToCart && onAddToCart()}
+            onClick={(e) => { e.stopPropagation(); onAddToCart && onAddToCart(); }}
           >
             {cta}
           </button>
