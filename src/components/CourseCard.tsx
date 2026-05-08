@@ -1,13 +1,16 @@
 /**
  * CourseCard — a batch card used in the Trending Courses list.
- * The hero region shows teachers + the course name watermark; below
- * that is a body with class info, start date, price, and a primary CTA.
  *
- * `variant` toggles the green/teal Arjuna hero vs. a yellow-tinted hero
- * used by the Hindi Arjuna variant in the Figma design.
+ * The hero is a single thumbnail image. Each card carries its own
+ * `image` URL so a future thumbnail-generation API can populate it
+ * per-course; for now the call sites point at a static asset.
+ *
+ * `ratio` controls the thumbnail's aspect ratio (CSS `aspect-ratio`
+ * syntax). Defaults to "2 / 1" so the card height scales with width.
  */
 export type CourseCardProps = {
-  variant?: "green" | "yellow" | "gray";
+  image: string;             // hero thumbnail (relative to /public, or absolute URL)
+  ratio?: string;            // thumbnail aspect ratio, e.g. "2 / 1" (default), "16 / 9"
   classTag: string;          // "Class 11 NEET"
   langBadge?: string;        // "HINGLISH" / "हिंदी"
   title: string;             // "Arjuna" / "अर्जुना"
@@ -22,14 +25,9 @@ export type CourseCardProps = {
   onClick?: () => void;
 };
 
-const heroGradients: Record<NonNullable<CourseCardProps["variant"]>, string> = {
-  green: "linear-gradient(180deg, #0f4c3a 0%, #1d6b54 100%)",
-  yellow: "linear-gradient(180deg, #f5c14b 0%, #fde397 100%)",
-  gray: "linear-gradient(180deg, #e5e7eb 0%, #f3f4f6 100%)",
-};
-
 export default function CourseCard({
-  variant = "green",
+  image,
+  ratio = "2 / 1",
   classTag,
   langBadge,
   title,
@@ -49,30 +47,15 @@ export default function CourseCard({
       data-component="CourseCard"
       className={`overflow-hidden rounded-xl border border-strokeLight bg-white ${onClick ? "cursor-pointer" : ""}`}
     >
-      {/* Hero area — teachers + big watermark title */}
-      <div
-        className="relative flex h-[120px] items-end justify-center"
-        style={{ background: heroGradients[variant] }}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 flex items-center justify-center text-5xl opacity-25"
-          style={{
-            fontFamily: '"Teko", sans-serif',
-            fontWeight: 700,
-            color: variant === "green" ? "#ffffff" : "#7a271a",
-            letterSpacing: "0.04em",
-          }}
-        >
-          {title.toUpperCase()}
-        </div>
-        <div className="relative z-10 pb-2 text-2xl tracking-wider text-white/90">
-          👨‍🏫 👩‍🏫 👨‍🏫 👩‍🏫 👨‍🏫
-        </div>
-        <div className="absolute left-12 top-12 rounded-md bg-white/90 px-6 py-2 text-tiny font-semibold text-heading">
-          🎥 Live Classes, DPPs & more
-        </div>
-      </div>
+      {/* Hero — full-bleed thumbnail. Height is derived from the
+          configured aspect ratio so the image never gets squashed. */}
+      <img
+        src={image}
+        alt={title}
+        loading="lazy"
+        className="block w-full object-cover"
+        style={{ aspectRatio: ratio }}
+      />
 
       {/* Body */}
       <div className="flex flex-col gap-8 pt-12 px-16 pb-8">
@@ -109,7 +92,7 @@ export default function CourseCard({
               </span>
             )}
           </div>
-          <button 
+          <button
             className="rounded bg-heading px-20 py-10 text-regular font-semibold text-white"
             onClick={(e) => { e.stopPropagation(); onAddToCart && onAddToCart(); }}
           >

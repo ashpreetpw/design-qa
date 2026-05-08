@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import CourseCard, { CourseCardProps } from "./CourseCard";
 import SkeletonCard from "./SkeletonCard";
 
+// Static thumbnail used for every card today. Each card carries its own
+// `image` so a thumbnail-generation API can later produce a unique URL
+// per course without any UI changes.
+const PLACEHOLDER_THUMB = "/assets/biology-crash-course.png";
+
 const COURSES: CourseCardProps[] = [
   {
-    variant: "green",
+    image: PLACEHOLDER_THUMB,
     classTag: "Class 11 NEET",
     langBadge: "HINGLISH",
     title: "Arjuna",
@@ -17,7 +22,7 @@ const COURSES: CourseCardProps[] = [
     flagLine: "Multiple plans inside: Infinity & Infinity Pro",
   },
   {
-    variant: "yellow",
+    image: PLACEHOLDER_THUMB,
     classTag: "Class 11 NEET",
     langBadge: "हिंदी",
     title: "अर्जुना",
@@ -30,7 +35,7 @@ const COURSES: CourseCardProps[] = [
     flagLine: "Limited Time Offer: Get it for ₹6,999 till 8th Feb",
   },
   {
-    variant: "gray",
+    image: PLACEHOLDER_THUMB,
     classTag: "NEET 2027",
     langBadge: "हिंglish",
     title: "Power Batch",
