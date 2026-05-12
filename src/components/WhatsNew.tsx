@@ -4,7 +4,7 @@
  * hinting at the carousel's horizontal scroll affordance.
  */
 export default function WhatsNew() {
-  const slides = [0, 1, 2, 3, 4];
+  const slides = [0, 1, 2];
 
   return (
     <section
