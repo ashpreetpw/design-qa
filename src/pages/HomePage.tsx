@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StatusBar from "../components/StatusBar";
 import TopNav from "../components/TopNav";
 import ClassSelector from "../components/ClassSelector";
@@ -12,68 +12,35 @@ import CourseDetailsModal from "../components/CourseDetailsModal";
 import DoubtBubble from "../components/DoubtBubble";
 
 /**
- * Static list for the "All Courses" section. Defined here so each card can
- * be passed to the lifted modal handler with the right course payload.
- *
- * Each entry carries its own `image` so a future thumbnail-generation API
- * can populate a unique URL per course without any UI changes.
- */
-const PLACEHOLDER_THUMB = "/assets/biology-crash-course.png";
-
-const ALL_COURSES: CourseCardProps[] = [
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "Class 12",
-    langBadge: "HINGLISH",
-    title: "Lakshya JEE",
-    batchName: "JEE 2026",
-    startDate: "Starts on 20th May'25",
-    price: "₹4,500",
-    oldPrice: "₹6000",
-    discount: "25% OFF",
-    cta: "Buy Now",
-    flagLine: "Includes infinite test series",
-  },
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "UPSC CSE",
-    langBadge: "HINDI",
-    title: "Sankalp UPSC",
-    batchName: "UPSC 2026",
-    startDate: "Starts on 1st Jun'25",
-    price: "₹10,999",
-    oldPrice: "₹15000",
-    discount: "26% OFF",
-    cta: "Buy Now",
-    flagLine: "Live Interactive Classes",
-  },
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "Class 10",
-    langBadge: "ENGLISH",
-    title: "Udaan Fastrack",
-    batchName: "Board Exams 2026",
-    startDate: "Starts on 15th Mar'25",
-    price: "₹2,499",
-    discount: "Early Bird",
-    cta: "Enroll Now",
-    flagLine: "Complete Science & Math",
-  },
-];
-
-/**
  * HomePage — mobile-only composition of the course-app home screen.
  * Outer gray page centers a 360px mobile frame; everything inside the
  * frame is the implementation of Figma node 3235-4269.
  *
- * Modal state lives here (lifted from TrendingCourses) so a single
- * CourseDetailsModal serves both the Trending and All Courses sections.
+ * Course data is fetched from /api/courses on mount. Modal state is
+ * lifted here so a single CourseDetailsModal serves both Trending and
+ * All Courses sections.
  */
 export default function HomePage() {
   const [cartCount, setCartCount] = useState(0);
-  const [selectedCourse, setSelectedCourse] = useState<CourseCardProps | null>(
-    null
-  );
+  const [selectedCourse, setSelectedCourse] = useState<CourseCardProps | null>(null);
+  const [trendingCourses, setTrendingCourses] = useState<CourseCardProps[]>([]);
+  const [allCourses, setAllCourses] = useState<CourseCardProps[]>([]);
+  const [coursesLoading, setCoursesLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((r) => r.json())
+      .then((data) => {
+        setTrendingCourses(data.trending ?? []);
+        setAllCourses(data.all ?? []);
+      })
+      .catch((err) => {
+        console.error("Failed to load courses:", err);
+      })
+      .finally(() => {
+        setCoursesLoading(false);
+      });
+  }, []);
 
   const handleAddToCart = () => {
     setCartCount((c) => c + 1);
@@ -105,6 +72,8 @@ export default function HomePage() {
 
         <div className="relative z-10 bg-white">
           <TrendingCourses
+            courses={trendingCourses}
+            isLoading={coursesLoading}
             onAddToCart={handleAddToCart}
             onCourseClick={handleCourseClick}
           />
@@ -112,9 +81,9 @@ export default function HomePage() {
           <div id="all-courses" className="px-16 pt-16 pb-40 text-left">
             <h2 className="text-h3 font-semibold text-heading mb-12">All Courses</h2>
             <div className="flex flex-col gap-12">
-              {ALL_COURSES.map((course, idx) => (
+              {allCourses.map((course, idx) => (
                 <CourseCard
-                  key={idx}
+                  key={course.id ?? idx}
                   {...course}
                   onAddToCart={handleAddToCart}
                   onClick={() => handleCourseClick(course)}

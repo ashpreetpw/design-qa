@@ -9,6 +9,7 @@
  * syntax). Defaults to "2 / 1" so the card height scales with width.
  */
 export type CourseCardProps = {
+  id?: string;               // stable identifier — used server-side for banner cache keying
   image: string;             // hero thumbnail (relative to /public, or absolute URL)
   ratio?: string;            // thumbnail aspect ratio, e.g. "2 / 1" (default), "16 / 9"
   classTag: string;          // "Class 11 NEET"
