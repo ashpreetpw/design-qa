@@ -4,7 +4,7 @@ export default defineConfig({
     plugins: [react()],
     server: {
         host: true,
-        port: 3000,
+        port: 3001,
         // Forward /api/* to the Express server on :4000 so the frontend
         // can call relative paths without dealing with CORS in dev.
         proxy: {

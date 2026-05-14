@@ -1,80 +1,34 @@
-import { useState, useEffect } from "react";
 import CourseCard, { CourseCardProps } from "./CourseCard";
 import SkeletonCard from "./SkeletonCard";
 
-// Static thumbnail used for every card today. Each card carries its own
-// `image` so a thumbnail-generation API can later produce a unique URL
-// per course without any UI changes.
-const PLACEHOLDER_THUMB = "/assets/biology-crash-course.png";
-
-const COURSES: CourseCardProps[] = [
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "Class 11 NEET",
-    langBadge: "HINGLISH",
-    title: "Arjuna",
-    batchName: "NEET 2026",
-    startDate: "Starts on 14th Apr'25",
-    price: "₹4,999",
-    oldPrice: "₹5600",
-    discount: "11% OFF",
-    cta: "Buy Now",
-    flagLine: "Multiple plans inside: Infinity & Infinity Pro",
-  },
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "Class 11 NEET",
-    langBadge: "हिंदी",
-    title: "अर्जुना",
-    batchName: "NEET 2026",
-    startDate: "Starts on 14th Apr'25",
-    price: "₹3,199",
-    oldPrice: "₹5000",
-    discount: "36% OFF",
-    cta: "Buy Now",
-    flagLine: "Limited Time Offer: Get it for ₹6,999 till 8th Feb",
-  },
-  {
-    image: PLACEHOLDER_THUMB,
-    classTag: "NEET 2027",
-    langBadge: "हिंglish",
-    title: "Power Batch",
-    batchName: "Small Group Online Classes",
-    startDate: "Starts on 8th Jan'25",
-    price: "₹499",
-    discount: "For Seat Booking",
-    cta: "Book A Seat",
-    flagLine: "Power Batch: Small Group Online Classes",
-  },
-];
-
 /**
- * TrendingCourses — section header + three course cards + "View All Batches".
- * The three cards mirror the Figma design: Arjuna (green / Hinglish),
- * Arjuna (yellow / Hindi), and the gray Power Batch card.
+ * TrendingCourses — section header + course cards + "View All Batches".
  *
- * Both the buy/book CTA and the card click are wired here:
- *  - onAddToCart: bumps the floating cart count (handled in App).
- *  - onCourseClick: opens the shared CourseDetailsModal (state in App).
+ * Course data is fetched by the parent (HomePage) from /api/courses and
+ * passed down here. Loading state is also driven by the parent so that
+ * the skeleton count matches the number of courses being fetched.
+ *
+ *  - courses: array of course objects from the API
+ *  - isLoading: show skeletons while the fetch is in-flight
+ *  - onAddToCart: bumps the floating cart count (handled in HomePage)
+ *  - onCourseClick: opens the shared CourseDetailsModal (state in HomePage)
  */
 export type TrendingCoursesProps = {
+  courses: CourseCardProps[];
+  isLoading?: boolean;
   onAddToCart?: () => void;
   onCourseClick?: (course: CourseCardProps) => void;
 };
 
 export default function TrendingCourses({
+  courses,
+  isLoading = false,
   onAddToCart,
   onCourseClick,
 }: TrendingCoursesProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Use fetched course count for skeleton count, fall back to 3 while
+  // the first response hasn't arrived yet (courses will be empty).
+  const skeletonCount = courses.length || 3;
 
   return (
     <section
@@ -85,15 +39,13 @@ export default function TrendingCourses({
 
       <div className="flex flex-col gap-12">
         {isLoading ? (
-          <>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
+          Array.from({ length: skeletonCount }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))
         ) : (
-          COURSES.map((course, idx) => (
+          courses.map((course, idx) => (
             <CourseCard
-              key={idx}
+              key={course.id ?? idx}
               {...course}
               onAddToCart={onAddToCart}
               onClick={() => onCourseClick?.(course)}
